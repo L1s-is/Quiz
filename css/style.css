@@ -109,7 +109,7 @@ body {
     padding: 0 20px;
     width: 100%;
     max-width: 520px;
-    height: 66px;
+    min-height: 66px;
     background: #F1F9FB;
     border-radius: 12px;
     border: none;
@@ -334,6 +334,9 @@ body {
 }
 
 @media (max-width: 1024px) {
+    .main {
+        padding: 50px 30px;
+    }
     .main__title {
         font-size: 42px;
     }
@@ -347,6 +350,12 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header__wrapper {
+        padding: 0 40px;
+    }
+    .main {
+        padding: 30px;
+    }
     .main__title {
         font-size: 38px;
     }
@@ -360,11 +369,51 @@ body {
     .main__box {
         padding: 40px;
     }
+}
+@media (max-width: 580px) {
+    .header {
+        min-height: 74px;
+    }
+
+    .header__logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .header__title {
+        font-size: 28px;
+    }
+
+    .main {
+        padding: 20px;
+    }
+    .main__title {
+        font-size: 34px;
+        margin-bottom: 20px;
+    }
+
+    .main__box {
+        padding: 30px;
+    }
+
+
+    .btn--theme {
+        margin-right: 10px;
+        min-height: 60px;
+    }
+
     .form__question::after{
         bottom: -35px;
+    }
+    .question__title,
+    .result__title{
+        font-size: 24px;
+        margin-bottom: 30px;
     }
     .btn--question,
     .btn--result {
         width: 100%;
+        display: block;
+        margin-top: auto;
     }
 }
