@@ -19,6 +19,19 @@ body {
 .btn {
     font-family: inherit;
     cursor: pointer;
+    transition-property: background-color, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.btn:hover,
+.btn:focus{
+    background-color: #296C82;
+    color: #ffffff;
+    transition-property: background-color, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    outline: none;
 }
 
 .header {
@@ -193,6 +206,10 @@ body {
     margin-bottom: 25px;
     padding: 5px;
     width: min-content;
+}
+
+.question__answer:hover{
+    color: #296C82;
 }
 
 .question__answer:last-child {
@@ -404,7 +421,8 @@ body {
         padding: 30px;
     }
 
-    .main__box--question, .main__box--result {
+    .main__box--question,
+    .main__box--result {
         padding: 30px 60px;
     }
     .question__title, .result__title {
