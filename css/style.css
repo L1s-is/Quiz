@@ -332,3 +332,39 @@ body {
     font-size: 18px;
     margin-bottom: 109px;
 }
+
+@media (max-width: 1024px) {
+    .main__title {
+        font-size: 42px;
+    }
+    .btn--theme,
+    .theme__result--ratio{
+        font-size: 20px;
+    }
+    .theme__item {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main__title {
+        font-size: 38px;
+    }
+    .btn--theme,
+    .theme__result--ratio{
+        font-size: 18px;
+    }
+    .btn--theme {
+        margin-right: 10px;
+    }
+    .main__box {
+        padding: 40px;
+    }
+    .form__question::after{
+        bottom: -35px;
+    }
+    .btn--question,
+    .btn--result {
+        width: 100%;
+    }
+}
