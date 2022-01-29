@@ -371,6 +371,12 @@ body {
     .main__box {
         padding: 40px;
     }
+    .main__box--question, .main__box--result {
+        padding: 40px 80px;
+    }
+    .question__title, .result__title {
+        margin-bottom: 50px;
+    }
 }
 @media (max-width: 580px) {
     .header {
@@ -398,6 +404,12 @@ body {
         padding: 30px;
     }
 
+    .main__box--question, .main__box--result {
+        padding: 30px 60px;
+    }
+    .question__title, .result__title {
+        margin-bottom: 50px;
+    }
 
     .btn--theme {
         margin-right: 10px;
