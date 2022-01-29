@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -29,23 +30,29 @@
     <div class="main__box">
         <ul class="theme__list">
             <li class="theme__item">
-                <button>Финансовая грамотность</button>
+                <button class="btn btn--theme">Финансовая грамотность</button>
             </li>
             <li class="theme__item">
-                <button>Фронтенд разработка</button>
+                <button class="btn btn--theme">Фронтенд разработка</button>
                 <p class="theme_result">
                     <span class="theme__result--ratio">7/10</span>
                     <span class="theme__result--text">Последний результат</span>
                 </p>
             </li>
             <li class="theme__item">
-                <button>Бэкенд разработка</button>
+                <button class="btn btn--theme">Бэкенд разработка</button>
             </li>
             <li class="theme__item">
-                <button>Личные инвестиции</button>
+                <button class="btn btn--theme">Личные инвестиции</button>
             </li>
             <li class="theme__item">
-                <button>Нутрициология</button>
+                <button class="btn btn--theme">Нутрициология</button>
+            </li>
+            <li class="theme__item">
+                <button class="btn btn--theme">Нутрициология</button>
+            </li>
+            <li class="theme__item">
+                <button class="btn btn--theme">Нутрициология</button>
             </li>
         </ul>
     </div>
@@ -54,20 +61,16 @@
         <form class="form__question" data-count="1/10">
             <fieldset class="question">
                 <legend class="question__title">Какие типы input корректны?</legend>
-                <label class="question__answer">
-                    <input type="checkbox" class="answer__checkbox">text
-                </label>
-                <label class="question__answer">
-                    <input type="checkbox" class="answer__checkbox">color
-                </label>
-                <label class="question__answer">
-                    <input type="checkbox" class="answer__checkbox">week
-                </label>
-                <label class="question__answer">
-                    <input type="checkbox" class="answer__checkbox">day
-                </label>
+                <label class="question__answer question__answer--checkbox" for="answer1">
+                    <input id="answer1" name="answer1" type="checkbox" class="answer__checkbox">text</label>
+                <label class="question__answer question__answer--checkbox" for="answer2">
+                    <input id="answer2" name="answer2" type="checkbox" class="answer__checkbox">color</label>
+                <label class="question__answer question__answer--checkbox" for="answer3">
+                    <input id="answer3" name="answer3" type="checkbox" class="answer__checkbox">week</label>
+                <label class="question__answer question__answer--checkbox" for="answer4">
+                    <input id="answer4" name="answer4" type="checkbox" class="answer__checkbox">day</label>
             </fieldset>
-            <button class="btn question__btn">Подтвердить</button>
+            <button class="btn btn--question">Подтвердить</button>
         </form>
     </div>
 
@@ -75,25 +78,21 @@
         <form class="form__question" data-count="2/10">
             <fieldset class="question">
                 <legend class="question__title">Какая столица является родиной демократии?</legend>
-                <label class="question__answer">
-                    <input type="radio" class="answer__radio">Рим
-                </label>
-                <label class="question__answer">
-                    <input type="radio" class="answer__radio">Амстердам
-                </label>
-                <label class="question__answer">
-                    <input type="radio" class="answer__radio">Афины
-                </label>
-                <label class="question__answer">
-                    <input type="radio" class="answer__radio">Вашингтон
-                </label>
+                <label class="question__answer question__answer--radio">
+                    <input type="radio" class="answer__radio" name="answer">Рим</label>
+                <label class="question__answer question__answer--radio">
+                    <input type="radio" class="answer__radio" name="answer">Амстердам</label>
+                <label class="question__answer question__answer--radio">
+                    <input type="radio" class="answer__radio" name="answer">Афины</label>
+                <label class="question__answer question__answer--radio">
+                    <input type="radio" class="answer__radio" name="answer">Вашингтон</label>
             </fieldset>
-            <button class="btn question__btn">Подтвердить</button>
+            <button class="btn btn--question">Подтвердить</button>
         </form>
     </div>
 
     <div class="main__box main__box--result">
-        <h2 class="main__title">Ваш результат</h2>
+        <h2 class="result__title">Ваш результат</h2>
         <div class="result">
             <p class="result__ratio">
                 10/10
@@ -102,7 +101,7 @@
                 Отличный результат!
             </p>
         </div>
-        <button class="btn result__btn">К списку квизов</button>
+        <button class="btn btn--result">К списку квизов</button>
     </div>
 </main>
 </body>
