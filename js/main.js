@@ -25,6 +25,16 @@ function createThemeList (AppData) {
     })
 }
 
+function mixAnswers (arr) {
+    const newArray = [...arr]
+
+    for (let i = newArray.length - 1; i > 0; i--) {
+        let k = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[k]] = [newArray[k], newArray[i]]
+    }
+    return newArray
+}
+
 function createKeyAnswers (questionType, answersList, correct) {
     const keys = []
 
@@ -35,10 +45,10 @@ function createKeyAnswers (questionType, answersList, correct) {
             keys.push([item, i < correct])
         }
     })
-    return keys
+    return mixAnswers(keys)
 }
 
-function createAnswer (answer, questionType, answersList, correct) {
+function createAnswer (answer, questionType, i) {
     let newAnswer = templateAnswers.cloneNode(true)
     newAnswer.textContent = answer
 
@@ -46,13 +56,41 @@ function createAnswer (answer, questionType, answersList, correct) {
     input.className = "answer__" + questionType
     input.type = questionType
     input.name = "answer"
+    input.value = i
 
     newAnswer.append(input)
 
     return newAnswer
 }
 
-function createQuestion (i, currentTheme) {
+function showResult(result, currentTheme) {
+    const boxResult = template.content.querySelector(".main__box--result")
+    let newBox = boxResult.cloneNode(true)
+    //let resultTittle = newBox.querySelector(".result__title")
+    let resultRatio = newBox.querySelector(".result__ratio")
+    let resultText = newBox.querySelector(".result__text")
+
+    resultRatio.textContent = `${result}/${currentTheme.list.length}`
+    let percent = (result / currentTheme.list.length) * 100
+    console.log(currentTheme.result[0][0], currentTheme.result[0][1])
+    console.log(currentTheme.result[1][0], currentTheme.result[1][1])
+    console.log(currentTheme.result[2][0])
+    console.log(percent)
+    if (percent < +currentTheme.result[1][0]) {
+        resultText.textContent = currentTheme.result[0][1]
+        resultRatio.classList.add("result__ratio--bad")
+    } else if (percent >= +currentTheme.result[1][0] && percent < currentTheme.result[2][0]) {
+        resultText.textContent = currentTheme.result[1][1]
+        resultRatio.classList.add("result__ratio--medium")
+    } else {
+        resultText.textContent = currentTheme.result[2][1]
+        resultRatio.classList.add("result__ratio--excellent")
+    }
+
+    main.append(newBox)
+}
+
+function createQuestion (i, currentTheme, result) {
     let newBox = boxQuestion.cloneNode(true)
     let form = newBox.querySelector(".form__question")
     let questionTittle = newBox.querySelector(".question__title")
@@ -65,14 +103,22 @@ function createQuestion (i, currentTheme) {
     questionTittle.textContent = question.question
 
     form.dataset.count = `${i+1}/${length}`
-    //let answers = []
-    question.answers.forEach( item => {
-        let answer = createAnswer(item, questionType)
-        fieldset.append(answer)
-        //answers.push(answer)
-    })
+    let answers = []
+    let keys = []
     const keyAnswers = createKeyAnswers(questionType, question.answers, question.correct)
     console.log(keyAnswers)
+    keyAnswers.forEach( (item, i) => {
+        let answer = createAnswer(item[0], questionType, i)
+        fieldset.append(answer)
+        answers.push(answer)
+        keys.push(item[1])
+    })
+    const answersData = {
+        answers,
+        keys
+    }
+    console.log(answers)
+    console.log(keys)
     //fieldset.append(...answers)
     label.remove()
     main.append(newBox)
@@ -89,11 +135,14 @@ function createQuestion (i, currentTheme) {
         console.log(answer)
 
         if (isChecked) {
+            if (answer.every((result, i) => !!result === answersData.keys[i])){
+                result++
+            }
             hideThemeList(newBox)
             if (++i < length) {
-                createQuestion (i, currentTheme)
+                createQuestion (i, currentTheme, result)
             } else {
-                //showResult()
+                showResult(result, currentTheme)
                 console.log("конец")
             }
         } else {
@@ -125,7 +174,7 @@ function createQuiz(element) {
     let result = 0
 
     //создать бокс из исходника, в нем записать вопрос и ответы из бд
-    createQuestion (i, element)
+    createQuestion (i, element, result)
 }
 
 function initApp () {
