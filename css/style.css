@@ -205,7 +205,6 @@ body {
     margin-left: 65px;
     margin-bottom: 25px;
     padding: 5px;
-    width: min-content;
 }
 
 .question__answer:hover{

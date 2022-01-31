@@ -56,42 +56,42 @@
             </li>
         </ul>
     </div>
-
-    <div class="main__box main__box--question">
+<!--
+    <div class="main__box main__box&#45;&#45;question">
         <form class="form__question" data-count="1/10">
             <fieldset class="question">
                 <legend class="question__title">Какие типы input корректны?</legend>
-                <label class="question__answer question__answer--checkbox" for="answer1">
+                <label class="question__answer question__answer&#45;&#45;checkbox" for="answer1">
                     <input id="answer1" name="answer1" type="checkbox" class="answer__checkbox">text</label>
-                <label class="question__answer question__answer--checkbox" for="answer2">
+                <label class="question__answer question__answer&#45;&#45;checkbox" for="answer2">
                     <input id="answer2" name="answer2" type="checkbox" class="answer__checkbox">color</label>
-                <label class="question__answer question__answer--checkbox" for="answer3">
+                <label class="question__answer question__answer&#45;&#45;checkbox" for="answer3">
                     <input id="answer3" name="answer3" type="checkbox" class="answer__checkbox">week</label>
-                <label class="question__answer question__answer--checkbox" for="answer4">
+                <label class="question__answer question__answer&#45;&#45;checkbox" for="answer4">
                     <input id="answer4" name="answer4" type="checkbox" class="answer__checkbox">day</label>
             </fieldset>
-            <button class="btn btn--question">Подтвердить</button>
+            <button class="btn btn&#45;&#45;question">Подтвердить</button>
         </form>
     </div>
 
-    <div class="main__box main__box--question">
+    <div class="main__box main__box&#45;&#45;question">
         <form class="form__question" data-count="2/10">
             <fieldset class="question">
                 <legend class="question__title">Какая столица является родиной демократии?</legend>
-                <label class="question__answer question__answer--radio">
+                <label class="question__answer question__answer&#45;&#45;radio">
                     <input type="radio" class="answer__radio" name="answer">Рим</label>
-                <label class="question__answer question__answer--radio">
+                <label class="question__answer question__answer&#45;&#45;radio">
                     <input type="radio" class="answer__radio" name="answer">Амстердам</label>
-                <label class="question__answer question__answer--radio">
+                <label class="question__answer question__answer&#45;&#45;radio">
                     <input type="radio" class="answer__radio" name="answer">Афины</label>
-                <label class="question__answer question__answer--radio">
+                <label class="question__answer question__answer&#45;&#45;radio">
                     <input type="radio" class="answer__radio" name="answer">Вашингтон</label>
             </fieldset>
-            <button class="btn btn--question">Подтвердить</button>
+            <button class="btn btn&#45;&#45;question">Подтвердить</button>
         </form>
     </div>
 
-    <div class="main__box main__box--result">
+    <div class="main__box main__box&#45;&#45;result">
         <h2 class="result__title">Ваш результат</h2>
         <div class="result">
             <p class="result__ratio">
@@ -101,8 +101,32 @@
                 Отличный результат!
             </p>
         </div>
-        <button class="btn btn--result">К списку квизов</button>
-    </div>
+        <button class="btn btn&#45;&#45;result">К списку квизов</button>
+    </div>-->
+    <template>
+        <div class="main__box main__box--question">
+            <form class="form__question" data-count="1/10">
+                <fieldset class="question">
+                    <legend class="question__title">Какие типы input корректны?</legend>
+                    <label class="question__answer">
+                        <input type="checkbox" class="answer__checkbox">text</label>
+                </fieldset>
+                <button class="btn btn--question">Подтвердить</button>
+            </form>
+        </div>
+        <div class="main__box main__box--result">
+            <h2 class="result__title">Ваш результат</h2>
+            <div class="result">
+                <p class="result__ratio">
+                    10/10
+                </p>
+                <p class="result__text">
+                    Отличный результат!
+                </p>
+            </div>
+    </template>
 </main>
+<script src = js\data.js></script>
+<script src = js\main.js></script>
 </body>
 </html>
