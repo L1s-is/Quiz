@@ -25,7 +25,20 @@ function createThemeList (AppData) {
     })
 }
 
-function createAnswer (answer, questionType) {
+function createKeyAnswers (questionType, answersList, correct) {
+    const keys = []
+
+    answersList.forEach( (item, i) => {
+        if (questionType === "radio") {
+            keys.push([item, !i])
+        } else {
+            keys.push([item, i < correct])
+        }
+    })
+    return keys
+}
+
+function createAnswer (answer, questionType, answersList, correct) {
     let newAnswer = templateAnswers.cloneNode(true)
     newAnswer.textContent = answer
 
@@ -53,11 +66,13 @@ function createQuestion (i, currentTheme) {
 
     form.dataset.count = `${i+1}/${length}`
     //let answers = []
-    question.answers.forEach(item => {
+    question.answers.forEach( item => {
         let answer = createAnswer(item, questionType)
         fieldset.append(answer)
         //answers.push(answer)
     })
+    const keyAnswers = createKeyAnswers(questionType, question.answers, question.correct)
+    console.log(keyAnswers)
     //fieldset.append(...answers)
     label.remove()
     main.append(newBox)
