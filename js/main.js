@@ -32,19 +32,21 @@ function createAnswer (answer, questionType) {
     let input = document.createElement("input")
     input.className = "answer__" + questionType
     input.type = questionType
-    input.name = questionType
+    input.name = "answer"
 
     newAnswer.append(input)
 
     return newAnswer
 }
 
-function createQuestion (question, i, length) {
+function createQuestion (i, currentTheme) {
     let newBox = boxQuestion.cloneNode(true)
     let form = newBox.querySelector(".form__question")
     let questionTittle = newBox.querySelector(".question__title")
     let fieldset = newBox.querySelector(".question")
     let label = newBox.querySelector(".question__answer")
+    let question = currentTheme.list[i]
+    let length = currentTheme.list.length
     let questionType = question.type
 
     questionTittle.textContent = question.question
@@ -72,9 +74,16 @@ function createQuestion (question, i, length) {
         console.log(answer)
 
         if (isChecked) {
-            console.log(answer)
+            hideThemeList(newBox)
+            if (++i < length) {
+                createQuestion (i, currentTheme)
+            } else {
+                //showResult()
+                console.log("конец")
+            }
         } else {
-            console.error("не выбран ни один ответ")
+            form.classList.add("form__question--error")
+            setTimeout( () => form.classList.remove("form__question--error"), 1000)
         }
     })
 }
@@ -97,22 +106,11 @@ function hideThemeList(element) {
 function createQuiz(element) {
     hideThemeList(mainBox)
     hideThemeList(mainTittle)
-
-    //создать бокс, в нем вопрос и ответы из бд
     let i = 0
-    //createQuestion (element.list[i], i)
+    let result = 0
 
-    /*let btn = document.querySelector(".btn--question")
-    btn.addEventListener("click", function () {
-        createQuestion (element.list[i])
-        btn = document.querySelector(".btn--question")
-        i++
-    })*/
-
-    element.list.forEach(item => {
-        createQuestion(item, i, element.list.length)
-        i++
-    })
+    //создать бокс из исходника, в нем записать вопрос и ответы из бд
+    createQuestion (i, element)
 }
 
 function initApp () {

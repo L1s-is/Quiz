@@ -293,6 +293,33 @@ body {
     box-shadow: none;
 }
 
+.form__question--error .answer__checkbox::before,
+.form__question--error .answer__radio::before {
+    animation: shimmer 0.35s ease-in-out 3;
+}
+
+.form__question--error .question__answer {
+    animation: shake 0.7s ease-in-out;
+}
+
+@keyframes shimmer {
+    to {
+        box-shadow: 0px 2px 10px rgba(255, 0, 0, 0.65);
+    }
+}
+
+@keyframes shake {
+    0%, 50%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30% {
+        transform: translateX(-10px);
+    }
+    20%, 40% {
+        transform: translateX(10px);
+    }
+}
+
 .btn--question,
 .btn--result{
     display: block;
