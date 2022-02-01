@@ -4,24 +4,36 @@ const themeList = document.querySelector(".theme__list")
 const template = document.querySelector("template")
 let boxQuestion = template.content.querySelector(".main__box--question")
 let templateAnswers = template.content.querySelector(".question__answer")
+const themeResult = template.content.querySelector(".theme__result")
 const mainTittle = document.querySelector(".main__title")
 const mainBox = document.querySelector(".main__box")
 let main = document.querySelector(".main")
 
-function createTheme(themeName, parentNode){
+function createTheme(themeName, parentNode, id, length){
     let li = document.createElement("li")
     li.className = "theme__item"
     let btn = document.createElement("button")
     btn.className = "btn btn--theme"
+    btn.dataset.id = id
     btn.textContent = themeName
     li.append(btn)
+
+    const result = loadResult(id)
+    console.log(result)
+    if (result) {
+        let newThemeResult = themeResult.cloneNode(true)
+        let ratio = newThemeResult.querySelector(".theme__result--ratio")
+        ratio.textContent = `${result}/${length}`
+        li.append(newThemeResult)
+    }
+
     parentNode.append(li)
 }
 
 function createThemeList (AppData) {
     themeList.textContent = ""
     AppData.forEach(item => {
-        createTheme(item.theme, themeList)
+        createTheme(item.theme, themeList, item.id, item.list.length)
     })
 }
 
@@ -93,6 +105,15 @@ function showResult(result, currentTheme) {
     main.append(newBox)
 }
 
+function loadResult(id) {
+    console.log(id)
+    return localStorage.getItem(id)
+}
+
+function saveResult (result, id) {
+    localStorage.setItem(id, result)
+}
+
 function createQuestion (i, currentTheme, result) {
     let newBox = boxQuestion.cloneNode(true)
     let form = newBox.querySelector(".form__question")
@@ -144,7 +165,7 @@ function createQuestion (i, currentTheme, result) {
                 createQuestion (i, currentTheme, result)
             } else {
                 showResult(result, currentTheme)
-                console.log("конец")
+                saveResult(result, currentTheme.id)
             }
         } else {
             form.classList.add("form__question--error")
@@ -177,7 +198,6 @@ function createQuiz(element) {
     //создать бокс из исходника, в нем записать вопрос и ответы из бд
     createQuestion (i, element, result)
 }
-
 
 function getData () {
     return fetch("db/quiz_db.json").then(response => response.json())
