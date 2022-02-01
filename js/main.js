@@ -178,8 +178,13 @@ function createQuiz(element) {
     createQuestion (i, element, result)
 }
 
-function initApp () {
-    const AppData = getData()
+
+function getData () {
+    return fetch("db/quiz_db.json").then(response => response.json())
+}
+
+async function initApp () {
+    const AppData = await getData()
     console.log(AppData)
 
     createThemeList(AppData)
