@@ -9,6 +9,16 @@ const mainTittle = document.querySelector(".main__title")
 const mainBox = document.querySelector(".main__box")
 let main = document.querySelector(".main")
 
+function createResult(id, parentNode, length) {
+    const result = loadResult(id)
+    if (result) {
+        let newThemeResult = themeResult.cloneNode(true)
+        let ratio = newThemeResult.querySelector(".theme__result--ratio")
+        ratio.textContent = `${result}/${length}`
+        parentNode.append(newThemeResult)
+    }
+}
+
 function createTheme(themeName, parentNode, id, length){
     let li = document.createElement("li")
     li.className = "theme__item"
@@ -18,13 +28,7 @@ function createTheme(themeName, parentNode, id, length){
     btn.textContent = themeName
     li.append(btn)
 
-    const result = loadResult(id)
-    if (result) {
-        let newThemeResult = themeResult.cloneNode(true)
-        let ratio = newThemeResult.querySelector(".theme__result--ratio")
-        ratio.textContent = `${result}/${length}`
-        li.append(newThemeResult)
-    }
+    createResult(id, li, length)
 
     parentNode.append(li)
 }
@@ -128,16 +132,12 @@ function showResult(result, currentTheme) {
         const result = loadResult(currentTheme.id)
         const buttons = [...mainBox.querySelectorAll(".btn--theme")]
         buttons.forEach( btn => {
-            console.log(btn)
             if (+btn.dataset.id === +currentTheme.id) {
                 let ratio = btn.parentNode.querySelector(".theme__result--ratio")
                 if (ratio) {
                     ratio.textContent = `${result}/${currentTheme.list.length}`
                 } else {
-                    let newThemeResult = themeResult.cloneNode(true)
-                    let ratio = newThemeResult.querySelector(".theme__result--ratio")
-                    ratio.textContent = `${result}/${currentTheme.list.length}`
-                    btn.parentNode.append(newThemeResult)
+                    createResult(currentTheme.id, btn.parentNode, currentTheme.list.length)
                 }
             }
         })
@@ -234,12 +234,11 @@ function createQuiz(element) {
     let i = 0
     let result = 0
 
-    //создать бокс из исходника, в нем записать вопрос и ответы из бд
     createQuestion (i, element, result)
 }
 
 function getData () {
-    return fetch("db/quiz_db.json").then(response => response.json())
+    return fetch("https://l1s-is.github.io/Quiz/db/quiz_db.json").then(response => response.json())
 }
 
 async function initApp () {
