@@ -121,13 +121,15 @@ function showResult(result, currentTheme) {
         }
     })
 
+    showElement(newBox)
     main.append(newBox)
 
     const btnBack = newBox.querySelector(".btn--result")
     btnBack.addEventListener("click", function () {
-        hideElement(newBox)
-        showElement(mainTittle)
-        showElement(mainBox)
+        hideElement(newBox, function () {
+            showElement(mainTittle)
+            showElement(mainBox)
+        })
 
         const result = loadResult(currentTheme.id)
         const buttons = [...mainBox.querySelectorAll(".btn--theme")]
@@ -183,6 +185,7 @@ function createQuestion (i, currentTheme, result) {
     }
 
     label.remove()
+    showElement(newBox)
     main.append(newBox)
 
     form.addEventListener("submit", function (evt) {
@@ -199,12 +202,16 @@ function createQuestion (i, currentTheme, result) {
             if (answer.every((result, i) => !!result === answersData.keys[i])){
                 result++
             }
-            hideElement(newBox)
+
             if (++i < length) {
-                createQuestion (i, currentTheme, result)
+                hideElement(newBox, () => createQuestion (i, currentTheme, result))
+
             } else {
-                showResult(result, currentTheme)
-                saveResult(result, currentTheme.id)
+                hideElement(newBox, function () {
+                    showResult(result, currentTheme)
+                    saveResult(result, currentTheme.id)
+                })
+
             }
         } else {
             form.classList.add("form__question--error")
@@ -213,7 +220,7 @@ function createQuestion (i, currentTheme, result) {
     })
 }
 
-function hideElement(element) {
+function hideElement(element, cb) {
     let opacity = getComputedStyle(element).getPropertyValue("opacity")
 
     function animation () {
@@ -223,18 +230,20 @@ function hideElement(element) {
             requestAnimationFrame(animation)
         } else {
             element.style.display = "none"
+            if (cb) cb()
         }
     }
+
     animation ()
 }
 
 function createQuiz(element) {
-    hideElement(mainBox)
+    hideElement(mainBox, () => createQuestion (i, element, result))
     hideElement(mainTittle)
     let i = 0
     let result = 0
 
-    createQuestion (i, element, result)
+
 }
 
 function getData () {
