@@ -124,6 +124,23 @@ function showResult(result, currentTheme) {
         hideElement(newBox)
         showElement(mainTittle)
         showElement(mainBox)
+
+        const result = loadResult(currentTheme.id)
+        const buttons = [...mainBox.querySelectorAll(".btn--theme")]
+        buttons.forEach( btn => {
+            console.log(btn)
+            if (+btn.dataset.id === +currentTheme.id) {
+                let ratio = btn.parentNode.querySelector(".theme__result--ratio")
+                if (ratio) {
+                    ratio.textContent = `${result}/${currentTheme.list.length}`
+                } else {
+                    let newThemeResult = themeResult.cloneNode(true)
+                    let ratio = newThemeResult.querySelector(".theme__result--ratio")
+                    ratio.textContent = `${result}/${currentTheme.list.length}`
+                    btn.parentNode.append(newThemeResult)
+                }
+            }
+        })
     })
 }
 
