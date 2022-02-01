@@ -19,7 +19,6 @@ function createTheme(themeName, parentNode, id, length){
     li.append(btn)
 
     const result = loadResult(id)
-    console.log(result)
     if (result) {
         let newThemeResult = themeResult.cloneNode(true)
         let ratio = newThemeResult.querySelector(".theme__result--ratio")
@@ -75,6 +74,22 @@ function createAnswer (answer, questionType, i) {
     return newAnswer
 }
 
+function showElement(element) {
+    let opacity = 0
+    element.opacity = opacity
+    element.style.display = ""
+
+    function animation () {
+        opacity += 0.05
+        element.style.opacity = opacity
+        if (opacity < 1) {
+            requestAnimationFrame(animation)
+        }
+    }
+
+    animation ()
+}
+
 function showResult(result, currentTheme) {
     const boxResult = template.content.querySelector(".main__box--result")
     let newBox = boxResult.cloneNode(true)
@@ -103,6 +118,13 @@ function showResult(result, currentTheme) {
     })
 
     main.append(newBox)
+
+    const btnBack = newBox.querySelector(".btn--result")
+    btnBack.addEventListener("click", function () {
+        hideElement(newBox)
+        showElement(mainTittle)
+        showElement(mainBox)
+    })
 }
 
 function loadResult(id) {
@@ -160,7 +182,7 @@ function createQuestion (i, currentTheme, result) {
             if (answer.every((result, i) => !!result === answersData.keys[i])){
                 result++
             }
-            hideThemeList(newBox)
+            hideElement(newBox)
             if (++i < length) {
                 createQuestion (i, currentTheme, result)
             } else {
@@ -174,7 +196,7 @@ function createQuestion (i, currentTheme, result) {
     })
 }
 
-function hideThemeList(element) {
+function hideElement(element) {
     let opacity = getComputedStyle(element).getPropertyValue("opacity")
 
     function animation () {
@@ -190,8 +212,8 @@ function hideThemeList(element) {
 }
 
 function createQuiz(element) {
-    hideThemeList(mainBox)
-    hideThemeList(mainTittle)
+    hideElement(mainBox)
+    hideElement(mainTittle)
     let i = 0
     let result = 0
 
