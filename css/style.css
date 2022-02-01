@@ -361,16 +361,16 @@ body {
     font-size: 32px;
 }
 
-.result__ratio--excellent {
-    background-color: #49F050;
+.result__ratio--bad {
+    background-color: #DC1C1C;
 }
 
 .result__ratio--medium {
     background-color: #EFCF24;
 }
 
-.result__ratio--bad {
-    background-color: #DC1C1C;
+.result__ratio--excellent {
+    background-color: #49F050;
 }
 
 .result__text {

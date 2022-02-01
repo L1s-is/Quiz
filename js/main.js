@@ -66,26 +66,29 @@ function createAnswer (answer, questionType, i) {
 function showResult(result, currentTheme) {
     const boxResult = template.content.querySelector(".main__box--result")
     let newBox = boxResult.cloneNode(true)
-    //let resultTittle = newBox.querySelector(".result__title")
     let resultRatio = newBox.querySelector(".result__ratio")
     let resultText = newBox.querySelector(".result__text")
 
     resultRatio.textContent = `${result}/${currentTheme.list.length}`
     let percent = (result / currentTheme.list.length) * 100
-    console.log(currentTheme.result[0][0], currentTheme.result[0][1])
-    console.log(currentTheme.result[1][0], currentTheme.result[1][1])
-    console.log(currentTheme.result[2][0])
-    console.log(percent)
-    if (percent < +currentTheme.result[1][0]) {
-        resultText.textContent = currentTheme.result[0][1]
-        resultRatio.classList.add("result__ratio--bad")
-    } else if (percent >= +currentTheme.result[1][0] && percent < currentTheme.result[2][0]) {
-        resultText.textContent = currentTheme.result[1][1]
-        resultRatio.classList.add("result__ratio--medium")
-    } else {
-        resultText.textContent = currentTheme.result[2][1]
-        resultRatio.classList.add("result__ratio--excellent")
+
+    const rating = {
+        0: "bad",
+        1: "medium",
+        2: "excellent"
     }
+
+    if (percent < currentTheme.result[0][0]) {
+        resultText.textContent = "Не расстраивайся, в следующий раз точно получится!";
+    }
+
+    currentTheme.result.forEach( (item, i) => {
+        let k = i
+        if (percent >= item[0]) {
+            resultText.textContent = item[1];
+            resultRatio.classList.add("result__ratio--" + rating[i])
+        }
+    })
 
     main.append(newBox)
 }
@@ -106,20 +109,19 @@ function createQuestion (i, currentTheme, result) {
     let answers = []
     let keys = []
     const keyAnswers = createKeyAnswers(questionType, question.answers, question.correct)
-    console.log(keyAnswers)
+
     keyAnswers.forEach( (item, i) => {
         let answer = createAnswer(item[0], questionType, i)
         fieldset.append(answer)
         answers.push(answer)
         keys.push(item[1])
     })
+
     const answersData = {
         answers,
         keys
     }
-    console.log(answers)
-    console.log(keys)
-    //fieldset.append(...answers)
+
     label.remove()
     main.append(newBox)
 
@@ -132,7 +134,6 @@ function createQuestion (i, currentTheme, result) {
             }
             return input.checked ? input.value : false
         })
-        console.log(answer)
 
         if (isChecked) {
             if (answer.every((result, i) => !!result === answersData.keys[i])){
