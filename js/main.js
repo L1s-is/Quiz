@@ -20,7 +20,7 @@
         }
     }
 
-    function createTheme(AppData, i){
+    function createTheme(AppData, i) {
         let themeName = AppData[i].theme
         let id = AppData[i].id
         let length = AppData[i].list.length
@@ -34,20 +34,20 @@
         li.append(btn)
 
         createResult(id, li, length)
-        setTimeout( function () {
+        setTimeout(function () {
             showElement(li)
             themeList.append(li)
-            if (++i < length-1) createTheme(AppData, i)
+            if (++i < length - 1) createTheme(AppData, i)
         }, 300)
     }
 
-    function createThemeList (AppData) {
+    function createThemeList(AppData) {
         themeList.textContent = ""
         let i = 0
         createTheme(AppData, i)
     }
 
-    function mixAnswers (arr) {
+    function mixAnswers(arr) {
         const newArray = [...arr]
 
         for (let i = newArray.length - 1; i > 0; i--) {
@@ -57,10 +57,10 @@
         return newArray
     }
 
-    function createKeyAnswers (questionType, answersList, correct) {
+    function createKeyAnswers(questionType, answersList, correct) {
         const keys = []
 
-        answersList.forEach( (item, i) => {
+        answersList.forEach((item, i) => {
             if (questionType === "radio") {
                 keys.push([item, !i])
             } else {
@@ -70,7 +70,7 @@
         return mixAnswers(keys)
     }
 
-    function createAnswer (answer, questionType, i) {
+    function createAnswer(answer, questionType, i) {
         let newAnswer = templateAnswers.cloneNode(true)
         newAnswer.textContent = answer
 
@@ -90,7 +90,7 @@
         element.opacity = opacity
         element.style.display = ""
 
-        function animation () {
+        function animation() {
             opacity += 0.05
             element.style.opacity = opacity
             if (opacity < 1) {
@@ -98,7 +98,7 @@
             }
         }
 
-        animation ()
+        animation()
     }
 
     function showResult(result, currentTheme) {
@@ -120,7 +120,7 @@
             resultText.textContent = "Не расстраивайся, в следующий раз точно получится!";
         }
 
-        currentTheme.result.forEach( (item, i) => {
+        currentTheme.result.forEach((item, i) => {
             let k = i
             if (percent >= item[0]) {
                 resultText.textContent = item[1];
@@ -140,7 +140,7 @@
 
             const result = loadResult(currentTheme.id)
             const buttons = [...mainBox.querySelectorAll(".btn--theme")]
-            buttons.forEach( btn => {
+            buttons.forEach(btn => {
                 if (+btn.dataset.id === +currentTheme.id) {
                     let ratio = btn.parentNode.querySelector(".theme__result--ratio")
                     if (ratio) {
@@ -157,11 +157,11 @@
         return localStorage.getItem(id)
     }
 
-    function saveResult (result, id) {
+    function saveResult(result, id) {
         localStorage.setItem(id, result)
     }
 
-    function createQuestion (i, currentTheme, result) {
+    function createQuestion(i, currentTheme, result) {
         let newBox = boxQuestion.cloneNode(true)
         let form = newBox.querySelector(".form__question")
         let questionTittle = newBox.querySelector(".question__title")
@@ -173,12 +173,12 @@
 
         questionTittle.textContent = question.question
 
-        form.dataset.count = `${i+1}/${length}`
+        form.dataset.count = `${i + 1}/${length}`
         let answers = []
         let keys = []
         const keyAnswers = createKeyAnswers(questionType, question.answers, question.correct)
 
-        keyAnswers.forEach( (item, i) => {
+        keyAnswers.forEach((item, i) => {
             let answer = createAnswer(item[0], questionType, i)
             fieldset.append(answer)
             answers.push(answer)
@@ -198,19 +198,19 @@
             evt.preventDefault()
             let isChecked = false
             const answer = [...form.querySelectorAll("input")].map(input => {
-                if (input.checked){
+                if (input.checked) {
                     isChecked = true
                 }
                 return input.checked ? input.value : false
             })
 
             if (isChecked) {
-                if (answer.every((result, i) => !!result === answersData.keys[i])){
+                if (answer.every((result, i) => !!result === answersData.keys[i])) {
                     result++
                 }
 
                 if (++i < length) {
-                    hideElement(newBox, () => createQuestion (i, currentTheme, result))
+                    hideElement(newBox, () => createQuestion(i, currentTheme, result))
 
                 } else {
                     hideElement(newBox, function () {
@@ -220,7 +220,7 @@
                 }
             } else {
                 form.classList.add("form__question--error")
-                setTimeout( () => form.classList.remove("form__question--error"), 1000)
+                setTimeout(() => form.classList.remove("form__question--error"), 1000)
             }
         })
     }
@@ -228,7 +228,7 @@
     function hideElement(element, cb) {
         let opacity = getComputedStyle(element).getPropertyValue("opacity")
 
-        function animation () {
+        function animation() {
             opacity -= 0.05
             element.style.opacity = opacity
             if (opacity > 0) {
@@ -239,18 +239,18 @@
             }
         }
 
-        animation ()
+        animation()
     }
 
     function createQuiz(element) {
         let i = 0
         let result = 0
-        hideElement(mainBox, () => createQuestion (i, element, result))
+        hideElement(mainBox, () => createQuestion(i, element, result))
         hideElement(mainTittle)
     }
 
-    function initApp () {
-        getData(createThemeList)
+    function initApp() {
+        window.backend.getData(createThemeList)
 
         themeList.addEventListener("click", function (evt) {
             window.backend.AppData.forEach(item => {
@@ -262,6 +262,7 @@
     }
 
     initApp()
+
     window.main = {
         template: template,
         mainBox: mainBox
