@@ -378,6 +378,38 @@ body {
     margin-bottom: 109px;
 }
 
+.message--error {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-radius: 20px;
+    border: 1px solid #DC1C1C;
+
+    background-color: rgba(220, 28, 28, 0.35);
+
+    padding: 20px;
+    margin: 20px;
+
+    min-width: 450px;
+    width: 40%;
+    animation: up 1.5s ease-in-out;
+}
+
+@keyframes up {
+    0%{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message__text {
+    margin: 0;
+}
+
 @media (max-width: 1024px) {
     .main {
         padding: 50px 30px;
@@ -473,6 +505,12 @@ body {
         width: 100%;
         display: block;
         margin-top: auto;
+    }
+    .message--error{
+        box-sizing: border-box;
+        min-width: 300px;
+        width: calc(100% - 20px);
+        margin: 10px;
     }
 }
 @media (max-width: 380px) {

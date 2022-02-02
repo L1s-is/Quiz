@@ -154,7 +154,6 @@
     }
 
     function loadResult(id) {
-        console.log(id)
         return localStorage.getItem(id)
     }
 
@@ -250,18 +249,11 @@
         hideElement(mainTittle)
     }
 
-    function getData () {
-        return fetch("https://l1s-is.github.io/Quiz/db/quiz_db.json").then(response => response.json())
-    }
-
-    async function initApp () {
-        const AppData = await getData()
-        console.log(AppData)
-
-        createThemeList(AppData)
+    function initApp () {
+        getData(createThemeList)
 
         themeList.addEventListener("click", function (evt) {
-            AppData.forEach(item => {
+            window.backend.AppData.forEach(item => {
                 if (item.theme === evt.target.textContent) {
                     createQuiz(item)
                 }
@@ -270,4 +262,8 @@
     }
 
     initApp()
+    window.main = {
+        template: template,
+        mainBox: mainBox
+    }
 })()
