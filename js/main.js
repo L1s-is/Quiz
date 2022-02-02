@@ -20,7 +20,11 @@
         }
     }
 
-    function createTheme(themeName, parentNode, id, length){
+    function createTheme(AppData, i){
+        let themeName = AppData[i].theme
+        let id = AppData[i].id
+        let length = AppData[i].list.length
+
         let li = document.createElement("li")
         li.className = "theme__item"
         let btn = document.createElement("button")
@@ -30,15 +34,17 @@
         li.append(btn)
 
         createResult(id, li, length)
-
-        parentNode.append(li)
+        setTimeout( function () {
+            showElement(li)
+            themeList.append(li)
+            if (++i < length-1) createTheme(AppData, i)
+        }, 300)
     }
 
     function createThemeList (AppData) {
         themeList.textContent = ""
-        AppData.forEach(item => {
-            createTheme(item.theme, themeList, item.id, item.list.length)
-        })
+        let i = 0
+        createTheme(AppData, i)
     }
 
     function mixAnswers (arr) {
