@@ -164,6 +164,23 @@
         "question": "Как добавить элемент elem в массив array?",
         "answers": ["array.push(elem)", "array.shift(elem)", "array[array.length] = elem", "array.pop(elem)"],
         "correct": 3
+      },
+      {
+        "type": "checkbox",
+        "question": "Какие из этих значений в js являются ложными?",
+        "answers": ["undefined", "NaN", "-1", "'0'"],
+        "correct": 2
+      },
+      {
+        "type": "checkbox",
+        "question": "какие методы используются для привязки определенного объекта к значению this вызываемой функции?",
+        "answers": ["apply()", "bind()", "toSource()", "create()"],
+        "correct": 2
+      },
+      {
+        "type": "radio",
+        "question": "Сколько тернарных операторов существует в js?",
+        "answers": ["1", "ни одного", "2", "на усмотрение разработчика"]
       }
     ]
   },
