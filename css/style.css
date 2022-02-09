@@ -536,9 +536,8 @@ body {
         min-height: 70px;
     }
 
-    .header__logo {
-        width: 44px;
-        height: 44px;
+    .header__logo use{
+        transform: scale(0.95);
     }
 
     .header__title {
